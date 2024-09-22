@@ -40,7 +40,7 @@ public class FornecedorEntity {
     // (45)99999-9399
     private String telefone;
 
-    @OneToMany(mappedBy = "fornecedor_id")
+    @OneToMany(mappedBy = "fornecedor")
     @JsonIgnoreProperties({"fornecedores", "enderecos"})
     private List<EnderecoEntity> enderecos;
 

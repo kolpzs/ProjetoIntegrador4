@@ -1,10 +1,13 @@
 package com.projetointegrador.services;
 
+import com.projetointegrador.entities.FornecedorEntity;
 import com.projetointegrador.entities.ProdutoEntity;
+import com.projetointegrador.repositories.FornecedorRepository;
 import com.projetointegrador.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,8 +17,15 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public ProdutoEntity save(ProdutoEntity produtoEntity) {
-        return produtoRepository.save(produtoEntity);
+    @Autowired
+    private FornecedorRepository fornecedorRepository;
+
+    public ProdutoEntity save(ProdutoEntity produto, Long id) {
+        FornecedorEntity fornecedor = fornecedorRepository.findById(id).orElseThrow();
+        List<FornecedorEntity> fornecedores = new ArrayList<>();
+        fornecedores.add(fornecedor);
+        produto.setFornecedores(fornecedores);
+        return produtoRepository.save(produto);
     }
 
     public ProdutoEntity findById(Long id) {
@@ -28,17 +38,18 @@ public class ProdutoService {
 
     public ProdutoEntity update(ProdutoEntity produtoEntity) {
         ProdutoEntity base = findById(produtoEntity.getId());
-        if(Objects.equals(produtoEntity.getId(), base.getId())) {
-            if(produtoEntity.getNome() != null) {
+        if (Objects.equals(produtoEntity.getId(), base.getId())) {
+            if (produtoEntity.getNome() != null) {
                 base.setNome(produtoEntity.getNome());
             }
-            if(produtoEntity.getMarca() != null) {
+            if (produtoEntity.getMarca() != null) {
                 base.setMarca(produtoEntity.getMarca());
             }
-            if(produtoEntity.getModelo() != null) {
+            if (produtoEntity.getModelo() != null) {
                 base.setModelo(produtoEntity.getModelo());
             }
-            return save(base);
+            List<FornecedorEntity> fornecedores = produtoEntity.getFornecedores();
+            return save(base, fornecedores.get(0).getId());
         }
         return null;
     }

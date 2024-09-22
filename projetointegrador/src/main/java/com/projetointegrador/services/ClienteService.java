@@ -28,17 +28,17 @@ public class ClienteService {
 
     public ClienteEntity update(ClienteEntity clienteEntity) {
         ClienteEntity base = findById(clienteEntity.getId());
-        if(Objects.equals(clienteEntity.getId(), base.getId())) {
-            if(clienteEntity.getNome() != null) {
+        if (Objects.equals(clienteEntity.getId(), base.getId())) {
+            if (clienteEntity.getNome() != null) {
                 base.setNome(clienteEntity.getNome());
             }
-            if(clienteEntity.getCpf() != null) {
+            if (clienteEntity.getCpf() != null) {
                 base.setCpf(clienteEntity.getCpf());
             }
-            if(clienteEntity.getEmail() != null) {
+            if (clienteEntity.getEmail() != null) {
                 base.setEmail(clienteEntity.getEmail());
             }
-            if(clienteEntity.getTelefone() != null) {
+            if (clienteEntity.getTelefone() != null) {
                 base.setTelefone(clienteEntity.getTelefone());
             }
             return save(base);

@@ -40,18 +40,12 @@ public class FuncionarioEntity {
     // (45)99999-9399
     private String telefone;
 
-    @OneToOne
-    @JoinColumn(name = "usuario_id")
-    @JsonIgnoreProperties({"funcionarios", "enderecos"})
-    private UsuarioEntity usuario;
-
-    @OneToMany(mappedBy = "funcionario_id")
-    @JsonIgnoreProperties({"funcionarios", "enderecos"})
-    private List<EnderecoEntity> enderecos;
+    @Column(columnDefinition = "boolean default true")
+    private boolean ativo;
 
     @OneToMany(mappedBy = "funcionario")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
-    private List<ProdutoEntity> produtos;
+    @JsonIgnoreProperties({"funcionarios", "enderecos"})
+    private List<EnderecoEntity> enderecos;
 
     @OneToMany(mappedBy = "funcionario")
     @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})

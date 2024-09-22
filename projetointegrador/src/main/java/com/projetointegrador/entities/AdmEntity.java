@@ -1,6 +1,5 @@
 package com.projetointegrador.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -14,8 +13,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table
-@Entity(name = "usuarios")
-public class UsuarioEntity {
+@Entity(name = "adms")
+public class AdmEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,14 +26,8 @@ public class UsuarioEntity {
     @Column(nullable = false)
     private String senha;
 
-    private boolean ativo;
-
     @Min(0)
     @Max(3)
     @Column(nullable = false)
     private int acesso;
-
-    @OneToOne(mappedBy = "usuario")
-    @JsonIgnoreProperties({"funcionarios", "enderecos"})
-    private FuncionarioEntity funcionario;
 }
