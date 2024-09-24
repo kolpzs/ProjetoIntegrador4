@@ -1,11 +1,6 @@
 package com.projetointegrador.controllers;
 
-import com.projetointegrador.entities.ClienteEntity;
-import com.projetointegrador.entities.FornecedorEntity;
-import com.projetointegrador.entities.FuncionarioEntity;
-import com.projetointegrador.entities.GuiaEntradaEntity;
-import com.projetointegrador.entities.GuiaSaidaEntity;
-import com.projetointegrador.entities.ProdutoEntity;
+import com.projetointegrador.entities.*;
 import com.projetointegrador.services.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/funcionarios")
+@RequestMapping("/funcionario")
 public class FuncionarioController {
 
     @Autowired
@@ -51,12 +46,17 @@ public class FuncionarioController {
     }
 
     @PostMapping("/saveGuiaEntrada")
-    public ResponseEntity<GuiaEntradaEntity> saveGuiaEntrada(@RequestBody GuiaEntradaEntity guiaEntrada, @RequestParam List<Long> produtos_id, @RequestParam Long fornecedor_id, @RequestParam Long funcionario_id) {
-        return ResponseEntity.ok(funcionarioService.saveGuiaEntrada(guiaEntrada, produtos_id, fornecedor_id, funcionario_id));
+    public ResponseEntity<GuiaEntradaEntity> saveGuiaEntrada(@RequestBody GuiaEntradaEntity guiaEntrada, @RequestParam Long produto_id, @RequestParam Long fornecedor_id, @RequestParam Long funcionario_id) {
+        return ResponseEntity.ok(funcionarioService.saveGuiaEntrada(guiaEntrada, produto_id, fornecedor_id, funcionario_id));
     }
 
     @PostMapping("/saveGuiaSaida")
-    public ResponseEntity<GuiaSaidaEntity> saveGuiaSaida(@RequestBody GuiaSaidaEntity guiaSaida, @RequestParam List<Long> produtos_id, @RequestParam Long cliente_id, @RequestParam Long funcionario_id) {
-        return ResponseEntity.ok(funcionarioService.saveGuiaSaida(guiaSaida, produtos_id, cliente_id, funcionario_id));
+    public ResponseEntity<GuiaSaidaEntity> saveGuiaSaida(@RequestBody GuiaSaidaEntity guiaSaida, @RequestParam Long produto_id, @RequestParam Long cliente_id, @RequestParam Long funcionario_id) {
+        return ResponseEntity.ok(funcionarioService.saveGuiaSaida(guiaSaida, produto_id, cliente_id, funcionario_id));
+    }
+
+    @PutMapping("/associarEnderecoFornecedor")
+    public ResponseEntity<EnderecoEntity> associarEnderecoFornecedor(@RequestParam Long fornecedor_id, @RequestBody Long endereco_id) {
+        return ResponseEntity.ok(funcionarioService.associarEnderecoFornecedor(fornecedor_id, endereco_id));
     }
 }

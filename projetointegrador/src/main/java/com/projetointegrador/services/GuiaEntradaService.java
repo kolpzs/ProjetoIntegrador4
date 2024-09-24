@@ -1,7 +1,5 @@
 package com.projetointegrador.services;
 
-import com.projetointegrador.entities.FornecedorEntity;
-import com.projetointegrador.entities.FuncionarioEntity;
 import com.projetointegrador.entities.GuiaEntradaEntity;
 import com.projetointegrador.entities.ProdutoEntity;
 import com.projetointegrador.repositories.FornecedorRepository;
@@ -11,7 +9,6 @@ import com.projetointegrador.repositories.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,17 +27,13 @@ public class GuiaEntradaService {
     @Autowired
     private FuncionarioRepository funcionarioRepository;
 
-    public GuiaEntradaEntity save(GuiaEntradaEntity guia_entradaEntity, List<Long> produtos_id, Long fornecedor_id, Long funcionario_id) {
-        List<ProdutoEntity> produtos = new ArrayList<>();
-        FornecedorEntity fornecedor = fornecedorRepository.findById(fornecedor_id).orElseThrow();
-        FuncionarioEntity funcionario = funcionarioRepository.findById(funcionario_id).orElseThrow();
-        for (Long produto_id: produtos_id) {
-            ProdutoEntity produto = produtoRepository.findById(produto_id).orElseThrow();
-            produtos.add(produto);
-        }
-        guia_entradaEntity.setProdutos(produtos);
-        guia_entradaEntity.setFornecedor(fornecedor);
-        guia_entradaEntity.setFuncionario(funcionario);
+    public GuiaEntradaEntity save(GuiaEntradaEntity guia_entradaEntity, Long produtos_id, Long fornecedor_id, Long funcionario_id) {
+        guia_entradaEntity.setProduto(produtoRepository.findById(produtos_id).orElseThrow());
+        guia_entradaEntity.setFornecedor(fornecedorRepository.findById(fornecedor_id).orElseThrow());
+        guia_entradaEntity.setFuncionario(funcionarioRepository.findById(funcionario_id).orElseThrow());
+        ProdutoEntity produto = produtoRepository.findById(produtos_id).orElseThrow();
+        produto.setQuantidade_atual(guia_entradaEntity.getQuantidade());
+        produtoRepository.save(produto);
         return guia_entradaRepository.save(guia_entradaEntity);
     }
 
@@ -64,12 +57,13 @@ public class GuiaEntradaService {
             if (guia_entradaEntity.getQuantidade() > 0) {
                 base.setQuantidade(guia_entradaEntity.getQuantidade());
             }
-            List<Long> ids = new ArrayList<>();
-            for(ProdutoEntity produto : base.getProdutos()) {
-                Long id = produto.getId();
-                ids.add(id);
+            if (guia_entradaEntity.getProduto() != null) {
+                base.setProduto(guia_entradaEntity.getProduto());
             }
-            return save(base, ids, base.getFornecedor().getId(), base.getFuncionario().getId());
+            if (guia_entradaEntity.getFornecedor() != null) {
+                base.setFornecedor(guia_entradaEntity.getFornecedor());
+            }
+            return save(base, base.getProduto().getId(), base.getFornecedor().getId(), base.getFuncionario().getId());
         }
         return null;
     }

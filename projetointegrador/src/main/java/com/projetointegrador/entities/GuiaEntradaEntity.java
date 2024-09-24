@@ -34,14 +34,10 @@ public class GuiaEntradaEntity {
     @Column(nullable = false)
     private int quantidade;
 
-    @ManyToMany
-    @JoinTable(
-            name = "guia_entrada_produto",
-            joinColumns = @JoinColumn(name = "guia_entrada_id"),
-            inverseJoinColumns = @JoinColumn(name = "produto_id")
-    )
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
     @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
-    private List<ProdutoEntity> produtos;
+    private ProdutoEntity produto;
 
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")

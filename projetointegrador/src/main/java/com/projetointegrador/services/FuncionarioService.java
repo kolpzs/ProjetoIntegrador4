@@ -29,6 +29,9 @@ public class FuncionarioService {
     @Autowired
     private GuiaSaidaService guiaSaidaService;
 
+    @Autowired
+    private EnderecoService enderecoService;
+
     public FuncionarioEntity save(FuncionarioEntity funcionarioEntity) {
         return funcionarioRepository.save(funcionarioEntity);
     }
@@ -78,11 +81,15 @@ public class FuncionarioService {
         return produtoService.save(produto, id);
     }
 
-    public GuiaEntradaEntity saveGuiaEntrada(GuiaEntradaEntity guiaEntrada, List<Long> produtos_id, Long fornecedor_id, Long funcionario_id) {
-        return guiaEntradaService.save(guiaEntrada, produtos_id, fornecedor_id, funcionario_id);
+    public GuiaEntradaEntity saveGuiaEntrada(GuiaEntradaEntity guiaEntrada, Long produto_id, Long fornecedor_id, Long funcionario_id) {
+        return guiaEntradaService.save(guiaEntrada, produto_id, fornecedor_id, funcionario_id);
     }
 
-    public GuiaSaidaEntity saveGuiaSaida(GuiaSaidaEntity guiaSaida, List<Long> produtos_id, Long cliente_id, Long funcionario_id) {
-        return guiaSaidaService.save(guiaSaida, produtos_id, cliente_id, funcionario_id);
+    public GuiaSaidaEntity saveGuiaSaida(GuiaSaidaEntity guiaSaida, Long produto_id, Long cliente_id, Long funcionario_id) {
+        return guiaSaidaService.save(guiaSaida, produto_id, cliente_id, funcionario_id);
+    }
+
+    public EnderecoEntity associarEnderecoFornecedor(Long fornecedor_id, Long endereco_id) {
+        return enderecoService.updateEnderecoFornecedor(fornecedor_id, endereco_id);
     }
 }

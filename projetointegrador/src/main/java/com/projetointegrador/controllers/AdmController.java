@@ -52,8 +52,8 @@ public class AdmController {
         return ResponseEntity.ok(admService.saveEndereco(id, senha, endereco));
     }
 
-    @PostMapping("/associarEnderecoFuncionario/{id}/{senha}/{funcionario_id}/{endereco_id}")
-    public ResponseEntity<EnderecoEntity> associarEnderecoFuncionario(@PathVariable Long id, @PathVariable String senha, @PathVariable Long funcionario_id, @PathVariable Long endereco_id) {
-        return ResponseEntity.ok(admService.associarEnderecoFuncionario(id, senha, funcionario_id, endereco_id));
+    @PostMapping("/associarEnderecoFuncionario")
+    public ResponseEntity<EnderecoEntity> associarEnderecoFuncionario(@RequestParam Long funcionario_id, @RequestParam Long endereco_id) {
+        return ResponseEntity.ok(admService.associarEnderecoFuncionario(funcionario_id, endereco_id));
     }
 }

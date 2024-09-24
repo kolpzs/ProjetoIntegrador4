@@ -1,8 +1,8 @@
 package com.projetointegrador.services;
 
+import com.projetointegrador.entities.AdmEntity;
 import com.projetointegrador.entities.EnderecoEntity;
 import com.projetointegrador.entities.FuncionarioEntity;
-import com.projetointegrador.entities.AdmEntity;
 import com.projetointegrador.repositories.AdmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,10 +73,7 @@ public class AdmService {
         return null;
     }
 
-    public EnderecoEntity associarEnderecoFuncionario(Long id, String senha, Long funcionario_id, Long endereco_id) {
-        if (validaLogin(id, senha)) {
-            return enderecoService.updateEnderecoFuncionario(funcionario_id, endereco_id);
-        }
-        return null;
+    public EnderecoEntity associarEnderecoFuncionario(Long funcionario_id, Long endereco_id) {
+        return enderecoService.updateEnderecoFuncionario(funcionario_id, endereco_id);
     }
 }

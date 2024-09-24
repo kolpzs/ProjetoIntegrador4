@@ -36,6 +36,22 @@ public class ProdutoService {
         return produtoRepository.findAll();
     }
 
+    public List<ProdutoEntity> findByNome(String nome) {
+        return produtoRepository.findByNome(nome);
+    }
+
+    public List<ProdutoEntity> findAllByFornecedorId(Long fornecedorId) {
+        return produtoRepository.findAllByFornecedorId(fornecedorId);
+    }
+
+    public List<ProdutoEntity> findByMarca(String marca) {
+        return produtoRepository.findByMarca(marca);
+    }
+
+    public List<ProdutoEntity> findByEstoque() {
+        return produtoRepository.findAllWithStock();
+    }
+
     public ProdutoEntity update(ProdutoEntity produtoEntity) {
         ProdutoEntity base = findById(produtoEntity.getId());
         if (Objects.equals(produtoEntity.getId(), base.getId())) {

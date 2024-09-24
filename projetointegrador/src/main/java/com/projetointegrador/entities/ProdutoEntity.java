@@ -48,11 +48,11 @@ public class ProdutoEntity {
     @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
     private List<FornecedorEntity> fornecedores;
 
-    @ManyToMany(mappedBy = "produtos")
+    @OneToMany(mappedBy = "produto")
     @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
     private List<GuiaEntradaEntity> guias_entradas;
 
-    @ManyToMany(mappedBy = "produtos")
+    @OneToMany(mappedBy = "produto")
     @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
     private List<GuiaSaidaEntity> guias_saidas;
 }
