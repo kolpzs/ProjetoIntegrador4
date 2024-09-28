@@ -7,70 +7,122 @@ import com.projetointegrador.repositories.ClienteRepository;
 import com.projetointegrador.repositories.FuncionarioRepository;
 import com.projetointegrador.repositories.GuiaSaidaRepository;
 import com.projetointegrador.repositories.ProdutoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
-@Service
-public class GuiaSaidaService {
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-    @Autowired
-    private GuiaSaidaRepository guia_saidaRepository;
+public class GuiaSaidaServiceTest {
 
-    @Autowired
+    @InjectMocks
+    private GuiaSaidaService guiaSaidaService;
+
+    @Mock
+    private GuiaSaidaRepository guiaSaidaRepository;
+
+    @Mock
     private ClienteRepository clienteRepository;
 
-    @Autowired
+    @Mock
     private FuncionarioRepository funcionarioRepository;
 
-    @Autowired
+    @Mock
     private ProdutoRepository produtoRepository;
 
-    public GuiaSaidaEntity save(GuiaSaidaEntity guia_saidaEntity, Long produto_id, Long cliente_id, Long funcionario_id) {
-        guia_saidaEntity.setProduto(produtoRepository.findById(produto_id).orElseThrow());
-        guia_saidaEntity.setCliente(clienteRepository.findById(cliente_id).orElseThrow());
-        guia_saidaEntity.setFuncionario(funcionarioRepository.findById(funcionario_id).orElseThrow());
-        ProdutoEntity produto = produtoRepository.findById(produto_id).orElseThrow();
-        produto.setQuantidade_atual(guia_saidaEntity.getQuantidade());
-        produtoRepository.save(produto);
-        return guia_saidaRepository.save(guia_saidaEntity);
+    private GuiaSaidaEntity guiaSaidaEntity;
+    private ProdutoEntity produtoEntity;
+    private ClienteEntity clienteEntity;
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+
+        // Configura entidades para os testes
+        produtoEntity = new ProdutoEntity();
+        produtoEntity.setId(1L);
+        produtoEntity.setQuantidade_atual(10);
+
+        clienteEntity = new ClienteEntity();
+        clienteEntity.setId(1L);
+
+        guiaSaidaEntity = new GuiaSaidaEntity();
+        guiaSaidaEntity.setId(1L);
+        guiaSaidaEntity.setQuantidade(5);
+        guiaSaidaEntity.setProduto(produtoEntity);
+        guiaSaidaEntity.setCliente(clienteEntity);
     }
 
-    public GuiaSaidaEntity findById(Long id) {
-        return guia_saidaRepository.findById(id).orElseThrow();
+    @Test
+    public void testSave() {
+        when(produtoRepository.findById(1L)).thenReturn(Optional.of(produtoEntity));
+        when(clienteRepository.findById(1L)).thenReturn(Optional.of(clienteEntity));
+        when(guiaSaidaRepository.save(any(GuiaSaidaEntity.class))).thenReturn(guiaSaidaEntity);
+
+        GuiaSaidaEntity saved = guiaSaidaService.save(guiaSaidaEntity, 1L, 1L, null);
+
+        assertNotNull(saved);
+        assertEquals(guiaSaidaEntity.getId(), saved.getId());
+        verify(produtoRepository).save(produtoEntity);
+        verify(guiaSaidaRepository).save(guiaSaidaEntity);
     }
 
-    public List<GuiaSaidaEntity> findAll() {
-        return guia_saidaRepository.findAll();
+    @Test
+    public void testFindById() {
+        when(guiaSaidaRepository.findById(1L)).thenReturn(Optional.of(guiaSaidaEntity));
+
+        GuiaSaidaEntity found = guiaSaidaService.findById(1L);
+
+        assertNotNull(found);
+        assertEquals(guiaSaidaEntity.getId(), found.getId());
     }
 
-    public GuiaSaidaEntity update(GuiaSaidaEntity guia_saidaEntity) {
-        GuiaSaidaEntity base = findById(guia_saidaEntity.getId());
-        if (Objects.equals(guia_saidaEntity.getId(), base.getId())) {
-            if (guia_saidaEntity.getData() != null) {
-                base.setData(guia_saidaEntity.getData());
-            }
-            if (guia_saidaEntity.getValor() > 0) {
-                base.setValor(guia_saidaEntity.getValor());
-            }
-            if (guia_saidaEntity.getQuantidade() > 0) {
-                base.setQuantidade(guia_saidaEntity.getQuantidade());
-            }
-            if (guia_saidaEntity.getProduto() != null) {
-                base.setProduto(guia_saidaEntity.getProduto());
-            }
-            if (guia_saidaEntity.getCliente() != null) {
-                base.setCliente(guia_saidaEntity.getCliente());
-            }
-            return save(base, base.getProduto().getId(), base.getCliente().getId(), base.getFuncionario().getId());
-        }
-        return null;
+    @Test
+    public void testFindAll() {
+        when(guiaSaidaRepository.findAll()).thenReturn(List.of(guiaSaidaEntity));
+
+        List<GuiaSaidaEntity> all = guiaSaidaService.findAll();
+
+        assertFalse(all.isEmpty());
+        assertEquals(1, all.size());
     }
 
-    public String delete(Long id) {
-        guia_saidaRepository.delete(findById(id));
-        return "GuiaSaida removido com sucesso!";
+    @Test
+    public void testUpdate() {
+        when(guiaSaidaRepository.findById(1L)).thenReturn(Optional.of(guiaSaidaEntity));
+        when(guiaSaidaRepository.save(any(GuiaSaidaEntity.class))).thenReturn(guiaSaidaEntity);
+
+        guiaSaidaEntity.setQuantidade(7);
+        GuiaSaidaEntity updated = guiaSaidaService.update(guiaSaidaEntity);
+
+        assertNotNull(updated);
+        assertEquals(7, updated.getQuantidade());
+    }
+
+    @Test
+    public void testDelete() {
+        when(guiaSaidaRepository.findById(1L)).thenReturn(Optional.of(guiaSaidaEntity));
+
+        String response = guiaSaidaService.delete(1L);
+
+        assertEquals("GuiaSaida removido com sucesso!", response);
+        verify(guiaSaidaRepository).delete(guiaSaidaEntity);
+    }
+
+    @Test
+    public void testSaveProdutoNotFound() {
+        when(produtoRepository.findById(1L)).thenReturn(Optional.empty());
+
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            guiaSaidaService.save(guiaSaidaEntity, 1L, 1L, null);
+        });
+
+        assertEquals("Produto não encontrado", exception.getMessage());
     }
 }
