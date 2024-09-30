@@ -74,4 +74,14 @@ public class ProdutoService {
         produtoRepository.delete(findById(id));
         return "Produto removido com sucesso!";
     }
+
+    public List<String> relatorioEstoque() {
+        List<ProdutoEntity> produtosRelatorio = produtoRepository.findAllWithStockOrdered();
+        List<String> produtos = new ArrayList<>();
+
+        for (ProdutoEntity produto : produtosRelatorio) {
+            produtos.add(produto.getNome() + " " + produto.getMarca() + " " + produto.getModelo() + " " + produto.getQuantidade_atual());
+        }
+        return produtos;
+    }
 }

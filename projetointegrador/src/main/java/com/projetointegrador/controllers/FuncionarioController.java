@@ -15,6 +15,11 @@ public class FuncionarioController {
     @Autowired
     private FuncionarioService funcionarioService;
 
+    @GetMapping("/findById")
+    public ResponseEntity<FuncionarioEntity> findById(@RequestParam Long id) {
+        return ResponseEntity.ok(funcionarioService.findById(id));
+    }
+
     @GetMapping("/findAll")
     public ResponseEntity<List<FuncionarioEntity>> findAll() {
         return ResponseEntity.ok(funcionarioService.findAll());
@@ -56,7 +61,7 @@ public class FuncionarioController {
     }
 
     @PutMapping("/associarEnderecoFornecedor")
-    public ResponseEntity<EnderecoEntity> associarEnderecoFornecedor(@RequestParam Long fornecedor_id, @RequestBody Long endereco_id) {
+    public ResponseEntity<EnderecoEntity> associarEnderecoFornecedor(@RequestParam Long fornecedor_id, @RequestParam Long endereco_id) {
         return ResponseEntity.ok(funcionarioService.associarEnderecoFornecedor(fornecedor_id, endereco_id));
     }
 }

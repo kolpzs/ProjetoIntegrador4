@@ -20,4 +20,7 @@ public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Long> {
 
     @Query("SELECT p FROM produtos p WHERE p.quantidade_atual > 0")
     List<ProdutoEntity> findAllWithStock();
+
+    @Query("SELECT p FROM produtos p WHERE p.quantidade_atual > 0 ORDER BY p.nome ASC")
+    List<ProdutoEntity> findAllWithStockOrdered();
 }

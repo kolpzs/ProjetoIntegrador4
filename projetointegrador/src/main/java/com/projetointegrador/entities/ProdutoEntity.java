@@ -45,14 +45,14 @@ public class ProdutoEntity {
             joinColumns = @JoinColumn(name = "produto_id"),
             inverseJoinColumns = @JoinColumn(name = "avaliador_id")
     )
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private List<FornecedorEntity> fornecedores;
 
     @OneToMany(mappedBy = "produto")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private List<GuiaEntradaEntity> guias_entradas;
 
     @OneToMany(mappedBy = "produto")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private List<GuiaSaidaEntity> guias_saidas;
 }

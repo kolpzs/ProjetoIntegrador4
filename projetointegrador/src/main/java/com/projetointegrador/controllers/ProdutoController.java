@@ -43,7 +43,12 @@ public class ProdutoController {
     }
 
     @GetMapping("/findByEstoque")
-    public ResponseEntity<List<ProdutoEntity>> findByEstoque(@RequestParam Long estoque) {
+    public ResponseEntity<List<ProdutoEntity>> findByEstoque() {
         return ResponseEntity.ok(produtoService.findByEstoque());
+    }
+
+    @GetMapping("/relatorioEstoque")
+    public ResponseEntity<List<String>> relatorioEstoque() {
+        return ResponseEntity.ok(produtoService.relatorioEstoque());
     }
 }

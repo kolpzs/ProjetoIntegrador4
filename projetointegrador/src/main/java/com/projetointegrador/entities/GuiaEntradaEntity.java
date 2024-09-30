@@ -36,16 +36,16 @@ public class GuiaEntradaEntity {
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private ProdutoEntity produto;
 
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private FornecedorEntity fornecedor;
 
     @ManyToOne
     @JoinColumn(name = "funcionario_id")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private FuncionarioEntity funcionario;
 }

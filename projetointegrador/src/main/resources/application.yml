@@ -3,7 +3,7 @@ spring:
     name: segundoperiodo
 
   datasource:
-    url: jdbc:mysql://localhost:3306/segundoDB?useTimezone=true&serverTimezone=America/Sao_Paulo
+    url: jdbc:mysql://localhost:3306/pinDB?useTimezone=true&serverTimezone=America/Sao_Paulo
     username: root
     password: root
     driverClassName: com.mysql.jdbc.Driver

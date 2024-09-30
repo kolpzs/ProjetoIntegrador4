@@ -41,15 +41,15 @@ public class FornecedorEntity {
     private String telefone;
 
     @OneToMany(mappedBy = "fornecedor")
-    @JsonIgnoreProperties({"fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private List<EnderecoEntity> enderecos;
 
     @ManyToMany(mappedBy = "fornecedores")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private List<ProdutoEntity> produtos;
 
     @OneToMany(mappedBy = "fornecedor")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private List<GuiaEntradaEntity> guias_entradas;
 
 }

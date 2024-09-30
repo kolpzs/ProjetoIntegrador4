@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Setter
 @Getter
@@ -36,16 +35,16 @@ public class GuiaSaidaEntity {
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private ProdutoEntity produto;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private ClienteEntity cliente;
 
     @ManyToOne
     @JoinColumn(name = "funcionario_id")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private FuncionarioEntity funcionario;
 }

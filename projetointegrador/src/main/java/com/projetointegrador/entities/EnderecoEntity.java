@@ -44,11 +44,11 @@ public class EnderecoEntity {
 
     @ManyToOne
     @JoinColumn(name = "funcionario_id")
-    @JsonIgnoreProperties({"funcionarios", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private FuncionarioEntity funcionario;
 
     @ManyToOne
     @JoinColumn(name = "fornecedor_id")
-    @JsonIgnoreProperties({"fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private FornecedorEntity fornecedor;
 }

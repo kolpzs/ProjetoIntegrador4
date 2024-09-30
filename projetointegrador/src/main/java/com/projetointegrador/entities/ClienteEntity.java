@@ -41,6 +41,6 @@ public class ClienteEntity {
     private String telefone;
 
     @OneToMany(mappedBy = "cliente")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private List<GuiaSaidaEntity> guias_saidas;
 }

@@ -44,14 +44,14 @@ public class FuncionarioEntity {
     private boolean ativo;
 
     @OneToMany(mappedBy = "funcionario")
-    @JsonIgnoreProperties({"funcionarios", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private List<EnderecoEntity> enderecos;
 
     @OneToMany(mappedBy = "funcionario")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private List<GuiaEntradaEntity> guias_entradas;
 
     @OneToMany(mappedBy = "funcionario")
-    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos"})
+    @JsonIgnoreProperties({"produtos", "fornecedores", "enderecos", "funcionarios", "adms", "guias_entradas", "guias_saidas", "clientes"})
     private List<GuiaSaidaEntity> guias_saidas;
 }
