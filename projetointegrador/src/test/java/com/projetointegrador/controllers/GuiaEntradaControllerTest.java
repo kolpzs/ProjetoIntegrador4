@@ -1,7 +1,7 @@
 package com.projetointegrador.controllers;
 
 import com.projetointegrador.entities.GuiaEntradaEntity;
-import com.projetointegrador.services.GuiaEntradaServiceTest;
+import com.projetointegrador.services.GuiaEntradaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -26,7 +26,7 @@ class GuiaEntradaControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private GuiaEntradaServiceTest guiaEntradaService;
+    private GuiaEntradaService guiaEntradaService;
 
     @InjectMocks
     private GuiaEntradaController guiaEntradaController;
