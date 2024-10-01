@@ -86,7 +86,7 @@ public class ProdutoServiceTest {
         ProdutoEntity produto = new ProdutoEntity();
         produto.setNome("Produto Teste");
 
-        when(produtoRepository.findByNome("Produto Teste")).thenReturn(Arrays.asList(produto));
+        when(produtoRepository.findByNome("Produto Teste")).thenReturn(List.of(produto));
 
         List<ProdutoEntity> result = produtoService.findByNome("Produto Teste");
         assertNotNull(result);
@@ -101,9 +101,9 @@ public class ProdutoServiceTest {
         ProdutoEntity produto = new ProdutoEntity();
         FornecedorEntity fornecedor = new FornecedorEntity();
         fornecedor.setId(1L);
-        produto.setFornecedores(Arrays.asList(fornecedor));
+        produto.setFornecedores(List.of(fornecedor));
 
-        when(produtoRepository.findAllByFornecedorId(1L)).thenReturn(Arrays.asList(produto));
+        when(produtoRepository.findAllByFornecedorId(1L)).thenReturn(List.of(produto));
 
         List<ProdutoEntity> result = produtoService.findAllByFornecedorId(1L);
         assertNotNull(result);
@@ -118,7 +118,7 @@ public class ProdutoServiceTest {
         ProdutoEntity produto = new ProdutoEntity();
         produto.setMarca("Marca Teste");
 
-        when(produtoRepository.findByMarca("Marca Teste")).thenReturn(Arrays.asList(produto));
+        when(produtoRepository.findByMarca("Marca Teste")).thenReturn(List.of(produto));
 
         List<ProdutoEntity> result = produtoService.findByMarca("Marca Teste");
         assertNotNull(result);
@@ -130,49 +130,41 @@ public class ProdutoServiceTest {
 
     @Test
     void testUpdateProdutoWithNewFornecedor() {
-        // Produto existente
         ProdutoEntity produto = new ProdutoEntity();
         produto.setId(1L);
         produto.setNome("Produto Antigo");
 
-        // Fornecedor existente no sistema
         FornecedorEntity fornecedorExistente = new FornecedorEntity();
         fornecedorExistente.setId(1L);
-        produto.setFornecedores(Arrays.asList(fornecedorExistente));
+        produto.setFornecedores(List.of(fornecedorExistente));
 
-        // Produto atualizado com novo fornecedor
         ProdutoEntity updatedProduto = new ProdutoEntity();
         updatedProduto.setId(1L);
         updatedProduto.setNome("Produto Novo");
         updatedProduto.setMarca("Marca Nova");
 
-        // Novo fornecedor criado para ser adicionado
         FornecedorEntity novoFornecedor = new FornecedorEntity();
-        novoFornecedor.setId(2L); // Novo ID do fornecedor
+        novoFornecedor.setId(2L);
         novoFornecedor.setNome_social("Fornecedor Novo");
 
-        updatedProduto.setFornecedores(Arrays.asList(novoFornecedor)); // Associar novo fornecedor
+        updatedProduto.setFornecedores(List.of(novoFornecedor));
 
-        // Simular o comportamento dos repositórios
         when(produtoRepository.findById(1L)).thenReturn(Optional.of(produto));
         when(fornecedorRepository.findById(1L)).thenReturn(Optional.of(fornecedorExistente));
-        when(fornecedorRepository.findById(2L)).thenReturn(Optional.of(novoFornecedor)); // Simular novo fornecedor encontrado
+        when(fornecedorRepository.findById(2L)).thenReturn(Optional.of(novoFornecedor));
+
         when(produtoRepository.save(any(ProdutoEntity.class))).thenReturn(produto);
 
-        // Executar a atualização
         ProdutoEntity result = produtoService.update(updatedProduto);
 
-        // Validações do resultado
         assertNotNull(result);
         assertEquals("Produto Novo", result.getNome());
         assertEquals("Marca Nova", result.getMarca());
         assertEquals(1, result.getFornecedores().size());
-        assertEquals("Fornecedor Novo", result.getFornecedores().get(0).getNome_social()); // Verifica se o fornecedor foi atualizado
+        assertEquals("Fornecedor Novo", result.getFornecedores().get(0).getNome_social());
 
-        // Verificar se o produto foi salvo com as mudanças
         verify(produtoRepository, times(1)).save(produto);
     }
-
 
     @Test
     void testDeleteProduto() {
@@ -199,6 +191,6 @@ public class ProdutoServiceTest {
             produtoService.save(produto, 1L);
         });
 
-        verify(produtoRepository, times(0)).save(any(ProdutoEntity.class)); // O método save não deve ser chamado
+        verify(produtoRepository, times(0)).save(any(ProdutoEntity.class));
     }
 }

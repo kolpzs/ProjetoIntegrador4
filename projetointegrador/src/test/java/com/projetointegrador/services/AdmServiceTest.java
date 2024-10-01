@@ -75,7 +75,7 @@ public class AdmServiceTest {
         AdmEntity result = admService.update(updatedAdm);
         assertNotNull(result);
         assertEquals("Nome Novo", result.getNome());
-        assertEquals("Senha Antiga", result.getSenha()); // Senha não deve mudar
+        assertEquals("Senha Antiga", result.getSenha());
 
         verify(admRepository, times(1)).save(admEntity);
     }
@@ -96,7 +96,7 @@ public class AdmServiceTest {
 
         AdmEntity result = admService.update(updatedAdm);
         assertNotNull(result);
-        assertEquals("Nome Antigo", result.getNome()); // Nome não deve mudar
+        assertEquals("Nome Antigo", result.getNome());
         assertEquals("Senha Nova", result.getSenha());
 
         verify(admRepository, times(1)).save(admEntity);
@@ -114,7 +114,7 @@ public class AdmServiceTest {
             admService.update(updatedAdm);
         });
 
-        verify(admRepository, times(0)).save(any(AdmEntity.class)); // O método save não deve ser chamado
+        verify(admRepository, times(0)).save(any(AdmEntity.class));
     }
 
     @Test
@@ -127,7 +127,7 @@ public class AdmServiceTest {
             admService.update(updatedAdm);
         });
 
-        verify(admRepository, times(0)).save(any(AdmEntity.class)); // O método save não deve ser chamado
+        verify(admRepository, times(0)).save(any(AdmEntity.class));
     }
 
     @Test
@@ -138,15 +138,15 @@ public class AdmServiceTest {
         admEntity.setSenha("Senha Antiga");
 
         AdmEntity updatedAdm = new AdmEntity();
-        updatedAdm.setId(1L); // Mesmo ID, mas com nome e senha nulos
+        updatedAdm.setId(1L);
 
         when(admRepository.findById(1L)).thenReturn(Optional.of(admEntity));
         when(admRepository.save(any(AdmEntity.class))).thenReturn(admEntity);
 
         AdmEntity result = admService.update(updatedAdm);
         assertNotNull(result);
-        assertEquals("Nome Antigo", result.getNome()); // Nome deve permanecer o mesmo
-        assertEquals("Senha Antiga", result.getSenha()); // Senha deve permanecer a mesma
+        assertEquals("Nome Antigo", result.getNome());
+        assertEquals("Senha Antiga", result.getSenha());
 
         verify(admRepository, times(1)).save(admEntity);
     }

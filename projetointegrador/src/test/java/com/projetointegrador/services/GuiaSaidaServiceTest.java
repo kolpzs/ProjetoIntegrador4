@@ -71,7 +71,7 @@ public class GuiaSaidaServiceTest {
 
         verify(guiaSaidaRepository, times(1)).save(guiaSaida);
         verify(produtoRepository, times(1)).save(produto);
-        assertEquals(5, produto.getQuantidade_atual()); // Verifica se a quantidade foi atualizada
+        assertEquals(5, produto.getQuantidade_atual());
     }
 
     @Test
@@ -161,7 +161,7 @@ public class GuiaSaidaServiceTest {
             guiaSaidaService.save(guiaSaida, 1L, 1L, 1L);
         });
 
-        verify(guiaSaidaRepository, times(0)).save(any(GuiaSaidaEntity.class)); // Não deve salvar
+        verify(guiaSaidaRepository, times(0)).save(any(GuiaSaidaEntity.class));
     }
 
     @Test
@@ -177,7 +177,7 @@ public class GuiaSaidaServiceTest {
             guiaSaidaService.save(guiaSaida, 1L, 1L, 1L);
         });
 
-        verify(guiaSaidaRepository, times(0)).save(any(GuiaSaidaEntity.class)); // Não deve salvar
+        verify(guiaSaidaRepository, times(0)).save(any(GuiaSaidaEntity.class));
     }
 
     @Test
@@ -196,6 +196,6 @@ public class GuiaSaidaServiceTest {
             guiaSaidaService.save(guiaSaida, 1L, 1L, 1L);
         });
 
-        verify(guiaSaidaRepository, times(0)).save(any(GuiaSaidaEntity.class)); // Não deve salvar
+        verify(guiaSaidaRepository, times(0)).save(any(GuiaSaidaEntity.class));
     }
 }
