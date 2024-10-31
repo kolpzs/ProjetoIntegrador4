@@ -56,4 +56,9 @@ public class AdmController {
     public ResponseEntity<EnderecoEntity> associarEnderecoFuncionario(@RequestParam Long funcionario_id, @RequestParam Long endereco_id) {
         return ResponseEntity.ok(admService.associarEnderecoFuncionario(funcionario_id, endereco_id));
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<Boolean> login(@RequestBody AdmEntity admEntity) {
+        return ResponseEntity.ok(admService.login(admEntity.getNome(), admEntity.getSenha()));
+    }
 }

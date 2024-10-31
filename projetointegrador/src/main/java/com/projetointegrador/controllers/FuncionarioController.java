@@ -2,6 +2,7 @@ package com.projetointegrador.controllers;
 
 import com.projetointegrador.entities.*;
 import com.projetointegrador.services.FuncionarioService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -63,5 +64,10 @@ public class FuncionarioController {
     @PutMapping("/associarEnderecoFornecedor")
     public ResponseEntity<EnderecoEntity> associarEnderecoFornecedor(@RequestParam Long fornecedor_id, @RequestParam Long endereco_id) {
         return ResponseEntity.ok(funcionarioService.associarEnderecoFornecedor(fornecedor_id, endereco_id));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Boolean> login(@RequestParam String cpf) {
+        return ResponseEntity.ok(funcionarioService.login(cpf));
     }
 }

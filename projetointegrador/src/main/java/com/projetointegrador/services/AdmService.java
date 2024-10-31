@@ -76,4 +76,9 @@ public class AdmService {
     public EnderecoEntity associarEnderecoFuncionario(Long funcionario_id, Long endereco_id) {
         return enderecoService.updateEnderecoFuncionario(funcionario_id, endereco_id);
     }
+
+    public boolean login(String user, String senha) {
+        AdmEntity adm = findById(Long.parseLong(user));
+        return Objects.equals(adm.getSenha(), senha);
+    }
 }

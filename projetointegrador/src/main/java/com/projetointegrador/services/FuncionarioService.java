@@ -92,4 +92,9 @@ public class FuncionarioService {
     public EnderecoEntity associarEnderecoFornecedor(Long fornecedor_id, Long endereco_id) {
         return enderecoService.updateEnderecoFornecedor(fornecedor_id, endereco_id);
     }
+
+    public boolean login(String cpf) {
+        FuncionarioEntity funcionario = funcionarioRepository.findByCpf(cpf);
+        return funcionario != null;
+    }
 }
