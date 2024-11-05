@@ -23,6 +23,12 @@ public class AdmService {
     private EnderecoService enderecoService;
 
     public AdmEntity save(AdmEntity admEntity) {
+        FuncionarioEntity funcionario = new FuncionarioEntity();
+        funcionario.setNome(admEntity.getNome());
+        funcionario.setCpf("000.000.000-00");
+        funcionario.setEmail("adm@adm.com");
+        funcionario.setTelefone("(45)99999-9999");
+        funcionarioService.save(funcionario);
         return admRepository.save(admEntity);
     }
 

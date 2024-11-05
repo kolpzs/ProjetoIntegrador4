@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/fornecedor")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class FornecedorController {
 
     @Autowired
