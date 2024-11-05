@@ -58,7 +58,7 @@ public class AdmController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestBody AdmEntity admEntity) {
-        return ResponseEntity.ok(admService.login(admEntity.getNome(), admEntity.getSenha()));
+    public ResponseEntity<Boolean> login(@RequestParam String nome, @RequestParam String senha) {
+        return ResponseEntity.ok(admService.login(nome, senha));
     }
 }
