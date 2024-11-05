@@ -78,7 +78,7 @@ public class AdmService {
     }
 
     public boolean login(String user, String senha) {
-        AdmEntity adm = findById(Long.parseLong(user));
+        AdmEntity adm = admRepository.findByNome(user);
         return Objects.equals(adm.getNome(), user) && Objects.equals(adm.getSenha(), senha);
     }
 }
